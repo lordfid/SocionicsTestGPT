@@ -1,17 +1,20 @@
 # Next Stage
 
-**Versi:** 1.0.0  
+**Versi:** 2.0.0  
 **Tanggal:** 17 Juni 2026  
 **Status:** ACTIVE  
 **Tahap berikutnya belum dimulai.**
 
 ## 1. Tahap yang disiapkan
 
-**Tahap 01 — Fondasi proyek dan kontrak domain**  
-**Gate:** 2  
-**Bobot:** 8%
+**Tahap 02 — Bootstrap proyek yang benar-benar dapat di-build**  
+**Gate terkait:** Gate 2 — Fondasi proyek dan kontrak domain  
+**Status gate saat masuk:** IN PROGRESS  
+**Bobot gate:** 8%
 
-Tujuan tahap berikutnya adalah menyiapkan codebase React + TypeScript + Vite dan kontrak domain yang dapat diuji, tanpa membuat bank pertanyaan, scoring final, narasi hasil, atau Card Studio.
+Tahap 02 adalah substage implementasi pertama Gate 2. Tujuannya membuat fondasi React + TypeScript + Vite yang bersih, dapat dijalankan, dapat diuji, dapat dibangun sebagai static SPA, dan sesuai dengan dependency boundaries yang telah ditetapkan.
+
+Tahap 02 tidak otomatis meluluskan Gate 2 bila mapping Model A dan kontrak domain lengkap belum masuk scope atau belum lulus acceptance criteria.
 
 ## 2. File yang wajib dibaca sebelum mulai
 
@@ -19,97 +22,139 @@ Urutan baca:
 
 1. `docs/PROJECT_CONSTITUTION.md`
 2. `docs/MEASUREMENT_PRINCIPLES.md`
-3. `docs/DECISIONS.md`
-4. `docs/REFERENCE_MATRIX.md`
-5. `docs/WORKFLOW.md`
-6. `docs/KNOWN_ISSUES.md`
-7. `docs/COVERAGE_REPORT.md`
-8. `docs/FILE_MANIFEST.md`
-9. `docs/PROJECT_STATE.md`
-10. `docs/CHANGELOG.md`
-11. `docs/NEXT_STAGE.md`
+3. `docs/ARCHITECTURE.md`
+4. `docs/DATA_FLOW.md`
+5. `docs/ERROR_STRATEGY.md`
+6. `docs/TEST_STRATEGY.md`
+7. `docs/DECISIONS.md`
+8. `docs/REFERENCE_MATRIX.md`
+9. `docs/WORKFLOW.md`
+10. `docs/FILE_MANIFEST.md`
+11. `docs/KNOWN_ISSUES.md`
+12. `docs/COVERAGE_REPORT.md`
+13. `docs/PROJECT_STATE.md`
+14. `docs/CHANGELOG.md`
+15. `docs/NEXT_STAGE.md`
+
+Seluruh filesystem proyek harus diperiksa sebelum membuat file agar tidak ada duplikasi atau path yang melanggar manifest.
 
 ## 3. File FROZEN
 
-Tidak boleh diubah pada Tahap 01 tanpa proposal migrasi:
+Tidak boleh diubah tanpa proposal migrasi:
 
 - `docs/PROJECT_CONSTITUTION.md`
 - `docs/MEASUREMENT_PRINCIPLES.md`
 
-Kontrak yang wajib dipertahankan:
+Kontrak yang harus dipertahankan:
 
-- nama produk;
-- local-first, no backend;
-- Tier A–D;
-- delapan kanal;
-- 16 model kandidat;
+- nama produk **Socionics Dalam Diriku**;
 - status ilmiah;
-- larangan korelasi lintas sistem dalam scoring;
-- status file dan gate progress.
+- Tier A–D;
+- delapan kanal permanen;
+- perbandingan 16 kandidat;
+- local-first dan tanpa backend;
+- larangan korelasi lintas sistem masuk scoring;
+- progres hanya berdasarkan gate penuh.
 
 ## 4. File CONTROLLED
 
-Perubahan hanya setelah dampak dianalisis dan verifikasi diperbarui:
+Perubahan memerlukan analisis dampak dan verification:
 
 - `docs/REFERENCE_MATRIX.md`
 - `docs/WORKFLOW.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_FLOW.md`
+- `docs/ERROR_STRATEGY.md`
+- `docs/TEST_STRATEGY.md`
 - `docs/FILE_MANIFEST.md`
 - `docs/DECISIONS.md`
 - `docs/COVERAGE_REPORT.md`
 - `docs/CHANGELOG.md`
 
-`DECISIONS.md` dan `CHANGELOG.md` bersifat append-only.
+`DECISIONS.md` dan `CHANGELOG.md` tetap append-only.
 
-## 5. File ACTIVE saat Tahap 01 dibuka
+## 5. File ACTIVE pada Tahap 02
+
+Dokumen status:
 
 - `docs/PROJECT_STATE.md`
 - `docs/KNOWN_ISSUES.md`
 - `docs/NEXT_STAGE.md`
-- file codebase dan domain contracts yang dinyatakan dalam scope Tahap 01.
 
-## 6. Tujuan teknis Tahap 01
+Target implementation files sesuai manifest:
 
-Tahap 01 kelak harus mencakup:
+- root package/config files;
+- `public/manifest.webmanifest`;
+- favicon dan local icons;
+- `src/main.tsx`;
+- `src/app/**` yang diperlukan shell;
+- minimal `src/ui/**` untuk shell, route status, theme, dan recovery;
+- test setup dan test yang benar-benar menguji shell/configuration;
+- import-boundary scaffolding yang relevan dengan file yang sudah ada.
 
-- toolchain React, TypeScript, Vite, Vitest, React Testing Library, ESLint;
-- scripts build, typecheck, lint, dan test yang benar-benar dijalankan;
-- kontrak TypeScript untuk information elements, Model A positions, blocks, quadra, TIM, evidence channels, provenance tier, dan version identifiers;
-- mapping Model A seluruh 16 TIM;
-- runtime invariants untuk memastikan setiap TIM memiliki delapan elemen unik dan posisi lengkap;
-- pemisahan domain stable state, situational state, mask, response style, dan noise pada level kontrak;
-- baseline unit tests;
-- keputusan storage awal tanpa mengimplementasikan Card Studio;
-- dokumentasi provenance per kontrak.
+File tidak boleh dibuat hanya agar tree terlihat penuh.
 
-## 7. Yang tidak boleh dikerjakan pada Tahap 01
+## 6. Tujuan Tahap 02
 
-- bank pertanyaan;
-- holdout item;
-- tie-break item;
-- scoring weights;
-- Bayesian prior atau likelihood;
-- adaptive selection;
+Tahap 02 harus membuat atau memperbaiki:
+
+- `package.json` dan lockfile hasil install nyata;
+- Vite, TypeScript, ESLint, Vitest, dan React Testing Library;
+- canonical commands `dev`, `typecheck`, `lint`, `test`, `coverage`, dan `build`;
+- static Vercel rewrite tanpa API route;
+- web app manifest dan favicon lokal;
+- app shell;
+- browser router dengan lazy route wiring;
+- root error boundary;
+- theme foundation;
+- CSS reset, design tokens, dan global styles;
+- route shells yang benar-benar dipakai oleh router;
+- folder structure yang sesuai `ARCHITECTURE.md` tanpa membuat data gate berikutnya;
+- baseline tests untuk shell, error boundary, route load, dan import boundaries yang telah dapat ditegakkan.
+
+Route sementara hanya boleh menunjukkan status pengembangan internal. Route tidak boleh menampilkan hasil Socionics, kandidat TIM, atau data peserta palsu.
+
+## 7. Yang dilarang pada Tahap 02
+
+- teks atau opsi pertanyaan;
+- production question data;
+- holdout atau tie-break item;
+- scoring weights, prior, likelihood, threshold, atau formula;
+- expected profile 16 TIM;
+- profil naratif 16 TIM;
+- adaptive selection implementation;
+- person-fit formula;
 - confidence formula;
-- narasi hasil;
-- UI kuis lengkap;
+- hasil random atau mock result;
+- Card Studio lengkap;
 - pemrosesan foto;
-- Card Studio;
-- integrasi jaringan;
-- korelasi MBTI/Enneagram/AP ke TIM.
+- test data yang masuk production source;
+- backend, API, serverless function, database, autentikasi, atau analytics;
+- import kosong, fungsi kosong, TODO, placeholder, dan route yang tidak pernah digunakan.
 
-## 8. Acceptance criteria awal Gate 2
+## 8. Acceptance criteria Tahap 02
 
-Gate 2 baru dapat lulus bila:
+Tahap 02 baru dapat ditutup bila:
 
-- seluruh command toolchain berhasil;
-- mapping 16 TIM lengkap dan diuji;
-- semua information elements muncul tepat satu kali pada tiap Model A;
-- blok, strength, value, dan mental/vital dapat diturunkan secara konsisten;
-- delapan kanal tersedia sebagai type-safe contract;
-- tidak ada import rusak, fungsi kosong, data palsu, atau file tak digunakan;
-- file FROZEN tidak berubah;
-- `PROJECT_STATE`, manifest, decisions, known issues, coverage, next stage, dan changelog diperbarui.
+- `npm install` atau `npm ci` berhasil dengan lockfile konsisten;
+- `npm run typecheck` exit code 0;
+- `npm run lint` exit code 0;
+- `npm run test` exit code 0 dan jumlah test dicatat;
+- `npm run coverage` exit code 0 dan coverage dicatat tanpa mengklaim scope yang belum ada;
+- `npm run build` exit code 0;
+- dev server dapat start dan entry route dapat dimuat dalam smoke check;
+- static route rewrite tidak memperkenalkan API route;
+- shell memakai nama produk yang benar;
+- tidak ada string identitas terlarang di UI;
+- file FROZEN memiliki hash yang sama;
+- tidak ada source pertanyaan, scoring, expected profile, profile naratif, atau Card Studio lengkap;
+- setiap file baru memiliki consumer dan test/verification;
+- manifest, state, decisions, issues, coverage, next stage, dan changelog diperbarui.
 
-## 9. Status saat ini
+## 9. Hubungan dengan Gate 2
 
-Tahap 01 belum dibuka. Tidak ada file codebase, question bank, scoring, UI, atau test produk yang dibuat dalam Tahap 00.
+Sesudah Tahap 02, Gate 2 hanya boleh berstatus PASS bila acceptance Gate 2 penuh juga terpenuhi, termasuk kontrak domain dan mapping Model A yang lengkap serta teruji. Bila Tahap 02 hanya menyelesaikan toolchain dan shell, Gate 2 tetap IN PROGRESS dan progres proyek tetap 4%.
+
+## 10. Status saat ini
+
+Tahap 01 telah ditutup. Tahap 02 belum dibuka. Tidak ada package, app source, question bank, scoring, profile, test produk, atau Card Studio yang dibuat pada Tahap 01.

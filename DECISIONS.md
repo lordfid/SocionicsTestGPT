@@ -1,6 +1,6 @@
 # Decisions
 
-**Versi dokumen:** 1.0.0  
+**Versi dokumen:** 1.1.0  
 **Tanggal:** 17 Juni 2026  
 **Status:** CONTROLLED, append-only
 
@@ -137,3 +137,112 @@ Keputusan lama tidak boleh diedit untuk menyesuaikan implementasi. Bila keputusa
 **Status:** LOCKED  
 **Keputusan:** Typecheck, lint, Vitest, React Testing Library, dan build dicatat not applicable pada Tahap 00.  
 **Alasan:** Codebase belum dibuat; klaim kelulusan akan menyesatkan.
+
+## DEC-0023 — Modular monolith browser-only
+
+**Status:** LOCKED  
+**Keputusan:** Aplikasi memakai modular monolith React yang dibangun sebagai static SPA dengan pure domain core, application modules, infrastructure adapters, serta presentation/composition layer.  
+**Alasan:** Memberi isolasi yang dapat diuji tanpa menambah backend, service boundary palsu, atau kompleksitas deployment.
+
+## DEC-0024 — Arah dependency tunggal dan public API
+
+**Status:** LOCKED  
+**Keputusan:** Cross-module import hanya melalui public API atau contract path yang dinyatakan stabil. Production module tidak boleh mengimpor `audit` atau `tests`.  
+**Alasan:** Mencegah siklus, coupling ke internal file, dan perubahan diam-diam pada kontrak.
+
+## DEC-0025 — Domain tanpa dependency keluar
+
+**Status:** LOCKED  
+**Keputusan:** `domain` tidak bergantung pada React, DOM, browser storage, question data, scoring implementation, result, card, UI, audit, atau tests.  
+**Alasan:** Invariant Model A dan kontrak pengukuran harus dapat diuji sebagai pure core.
+
+## DEC-0026 — Scoring pure dan menerima normalized observations
+
+**Status:** LOCKED  
+**Keputusan:** Scoring tidak membaca bank pertanyaan, UI, route, storage, clock, device, viewport, foto, atau correlation data. Scoring menerima normalized observations dan versioned candidate models melalui input eksplisit.  
+**Alasan:** Menjaga determinisme, auditability, dan pemisahan data dari engine.
+
+## DEC-0027 — Session mengorkestrasi melalui port
+
+**Status:** LOCKED  
+**Keputusan:** `session` menjadi coordinator alur questions dan scoring. Persistence dipanggil melalui `SessionStorePort`; `session` tidak mengimpor concrete storage adapter.  
+**Alasan:** Storage failure tidak boleh mencemari state machine atau membuat session sulit diuji.
+
+## DEC-0028 — Primary result dikunci sebelum holdout
+
+**Status:** LOCKED  
+**Keputusan:** Core dan tie-break membentuk primary ranking lock sebelum holdout dinilai. Holdout menghasilkan laporan konsistensi dan tidak mengubah primary ranking pada arsitektur awal.  
+**Alasan:** Mencegah leakage dan penggunaan holdout sebagai data pelatihan terselubung.
+
+## DEC-0029 — Randomness inti harus seeded
+
+**Status:** LOCKED  
+**Keputusan:** Browser crypto hanya membuat seed pada boundary. Pure core menerima `RandomSource`; `Math.random()` dilarang pada domain, selection, scoring, session, audit, dan card layout.  
+**Alasan:** Urutan dan hasil harus dapat direproduksi dari seed, versi, dan jawaban yang sama.
+
+## DEC-0030 — Storage memakai versioned envelope
+
+**Status:** LOCKED  
+**Keputusan:** Semua record persisten memiliki schema version, resource type, timestamps, app version, dan payload tervalidasi. Migration harus pure dan mempertahankan record asal sampai hasil baru terverifikasi.  
+**Alasan:** Resume dan upgrade tidak boleh bergantung pada field guessing atau overwrite berisiko.
+
+## DEC-0031 — Foto memory-only secara default
+
+**Status:** LOCKED  
+**Keputusan:** Foto Card Studio diproses melalui memory/Object URL dan tidak dipersistenkan secara default. IndexedDB hanya boleh digunakan setelah opt-in eksplisit.  
+**Alasan:** Foto tidak diperlukan untuk pengukuran dan memiliki risiko privasi serta ukuran storage lebih tinggi.
+
+## DEC-0032 — Card Studio menerima proyeksi hasil
+
+**Status:** LOCKED  
+**Keputusan:** Card Studio hanya menerima immutable `CardInput`. Renderer menerima ukuran output eksplisit dan tidak membaca viewport untuk menentukan hasil ekspor.  
+**Alasan:** Perubahan foto, crop, warna, format, atau viewport tidak boleh mengubah scoring maupun layout file secara tidak terkontrol.
+
+## DEC-0033 — Route dan data berat di-lazy-load
+
+**Status:** LOCKED  
+**Keputusan:** Assessment, result, references, Card Studio, profile narratives, candidate model data, serta photo/export modules dipisahkan menjadi chunk yang relevan. Critical shell dan recovery UI tetap eager.  
+**Alasan:** Mengurangi initial bundle tanpa membuat pemulihan bergantung pada chunk yang sama-sama gagal.
+
+## DEC-0034 — Test fixtures terpisah dari production data
+
+**Status:** LOCKED  
+**Keputusan:** Fixture sintetis hanya berada di `tests/fixtures` atau test file. Production registry dan bundle dilarang mengimpor fixture.  
+**Alasan:** Data tes tidak boleh menyamarkan bank produksi yang belum lengkap atau bocor ke peserta.
+
+## DEC-0035 — Struktur batch bank final
+
+**Status:** LOCKED  
+**Keputusan:** Kapasitas final bank adalah 12 file core × 16 item, 4 file holdout × 8 item, dan 4 file tie-break × 8 item.  
+**Alasan:** Memberi jumlah persis 192/32/32 dengan review dan diff yang terkendali.
+
+## DEC-0036 — Candidate expectation berbentuk 64 cell
+
+**Status:** LOCKED  
+**Keputusan:** Setiap kandidat TIM kelak memiliki schema 8 information elements × 8 evidence channels, yaitu 64 expected cells. Nilai cell belum ditetapkan pada Tahap 01.  
+**Alasan:** Bentuk ini mempertahankan delapan kanal permanen dan mencegah scoring berubah menjadi ranking elemen tunggal.
+
+## DEC-0037 — Error tidak boleh menghasilkan hasil pengganti
+
+**Status:** LOCKED  
+**Keputusan:** Invalid scoring input, holdout contamination, candidate model tidak lengkap, atau numeric failure menghentikan result assembly. Tidak ada default, random, atau last-known type fallback.  
+**Alasan:** Hasil yang tidak dapat dipercaya lebih berbahaya daripada kegagalan yang dijelaskan jujur.
+
+## DEC-0038 — Canonical npm commands
+
+**Status:** LOCKED  
+**Keputusan:** Bootstrap harus menyediakan `dev`, `typecheck`, `lint`, `test`, `coverage`, dan `build` dengan exit code nyata.  
+**Alasan:** Command lintas tahap harus konsisten dan dapat diverifikasi.
+
+## DEC-0039 — Browser history dengan static rewrite
+
+**Status:** LOCKED  
+**Keputusan:** Router menggunakan browser history dan target static host menyediakan rewrite route aplikasi ke `index.html`; tidak ada API route.  
+**Alasan:** URL tetap bersih sekaligus mempertahankan deployment statis.
+
+## DEC-0040 — Tahap 01 tidak meluluskan Gate 2
+
+**Status:** LOCKED  
+**Keputusan:** Selesainya arsitektur dan manifest adalah prerequisite internal Gate 2, tetapi Gate 2 tetap IN PROGRESS sampai bootstrap, kontrak domain, mapping Model A, tests, lint, typecheck, coverage relevan, dan build lulus. Progres tetap 4%.  
+**Alasan:** Progres hanya bertambah dari gate penuh yang lulus, bukan dari substage dokumentasi.
+

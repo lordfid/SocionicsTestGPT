@@ -1,129 +1,234 @@
-# Coverage Report — Tahap 00
+# Coverage Report — Hingga Tahap 01
 
-**Versi:** 1.0.0  
+**Versi:** 1.1.0  
 **Tanggal:** 17 Juni 2026  
 **Status:** CONTROLLED
 
 ## 1. Ringkasan coverage
 
-- Requirement Tahap 00 terpenuhi: **11 dari 11 dokumen wajib**
-- Coverage keseluruhan proyek berbobot: **4%**
+- Requirement dokumen Tahap 01: **15 dari 15 file tersedia**
+- Dokumen baru Tahap 01: **4 dari 4**
+- Dokumen status/governance yang diwajibkan diperbarui: **7 dari 7**
+- File FROZEN tetap identik: **2 dari 2**
+- Dependency graph yang direncanakan: **acyclic**
+- Assertion dokumentasi dan filesystem: **181 dari 181 lulus**
+- Pertanyaan produksi: **0**
+- Expected profile: **0**
+- Formula scoring: **0**
+- Profile naratif: **0**
+- Test produk: **0**
+- Source aplikasi: **0**
 - Gate lulus: **1 dari 11**
-- Dokumen wajib dibuat: **11 dari 11**
-- Referensi wajib ditemukan: **3 dari 3**
-- Referensi eksternal individual yang diaudit: **0 dari 208**
-- Pertanyaan dibuat: **0**
-- Scoring dibuat: **0**
-- Aplikasi dibuat: **0**
+- Gate 2: **IN PROGRESS**
+- Progres keseluruhan proyek tetap **4%**.
 
-Coverage Tahap 00 berarti seluruh deliverable governance tersedia. Progres keseluruhan proyek tetap 4%.
+Tahap 01 lulus sebagai substage arsitektur. Ia tidak memberi tambahan persentase karena Gate 2 belum memenuhi acceptance criteria penuh.
 
-## 2. Coverage dokumen wajib
+## 2. Coverage file Tahap 01
 
-| Dokumen | Ada | Isi minimum | Status |
-|---|---:|---|---|
-| PROJECT_CONSTITUTION | Ya | tujuan, tier, status ilmiah, teknologi, bahasa, kualitas, gate | PASS |
-| REFERENCE_MATRIX | Ya | klasifikasi, konflik, batas verifikasi | PASS |
-| MEASUREMENT_PRINCIPLES | Ya | konstruk, delapan kanal, 16 kandidat, larangan inferensi | PASS |
-| WORKFLOW | Ya | lima pass, gate, change control, verification | PASS |
-| PROJECT_STATE | Ya | stage, gate, progres, counts, command, versions | PASS |
-| FILE_MANIFEST | Ya | status, versi, tujuan, aturan perubahan | PASS |
-| DECISIONS | Ya | keputusan terkunci dan alasan | PASS |
-| KNOWN_ISSUES | Ya | issue, risiko, mitigasi, kriteria tutup | PASS |
-| COVERAGE_REPORT | Ya | scope coverage dan audit | PASS |
-| NEXT_STAGE | Ya | read order, FROZEN, CONTROLLED, tujuan Gate 2 | PASS |
-| CHANGELOG | Ya | riwayat Stage 00 | PASS |
-
-## 3. Coverage referensi wajib
-
-| Referensi | Ditemukan | Inti domain | Batas dibaca | Status |
-|---|---:|---|---|---|
-| Atlas Socionics Diri | Ya | Model A, posisi, elemen, TIM, quadra, workbook, anti-mistype | Teks utama dan pencarian terarah; visual tidak seluruhnya diperiksa | PASS WITH LIMITATION |
-| Peta Riset Socionics | Ya | 208 entri, psikometri, tier bukti, model comparison, adaptive, holdout | Dokumen dibaca; 208 sumber eksternal tidak diaudit individual | PASS WITH LIMITATION |
-| Typology Correlations Summarized | Ya | perbedaan sekolah dan korelasi komunitas | Dipakai hanya sebagai bahan sekunder | PASS WITH LIMITATION |
-
-## 4. Coverage pemisahan pengetahuan
-
-| Kategori | Dicakup | Lokasi utama |
-|---|---:|---|
-| Inti Model A | Ya | Constitution, Reference Matrix, Measurement Principles |
-| Tradisi internal Socionics | Ya | Reference Matrix |
-| Metode psikometri modern | Ya | Reference Matrix, Measurement Principles |
-| Pendapat komunitas | Ya | Reference Matrix |
-| Korelasi lintas sistem | Ya | Constitution, Reference Matrix, Decisions |
-| Komponen eksperimental | Ya | Constitution, Reference Matrix |
-| Klaim tanpa validasi memadai | Ya | Constitution, Reference Matrix, Known Issues |
-
-## 5. Coverage prinsip pengukuran
-
-| Requirement | Status | Bukti |
+| File | Requirement utama | Status |
 |---|---|---|
-| Kemampuan dipisahkan dari posisi | PASS | Measurement Principles §2 |
-| Otomatisitas dipisahkan | PASS | Measurement Principles §2–3 |
-| Fleksibilitas dipisahkan | PASS | Kanal `flexible` |
-| Kenyamanan dipisahkan | PASS | Konstruk dan indikator |
-| Valued dipisahkan dari strong | PASS | Constitution dan anti-inference |
-| Social demand dipisahkan | PASS | Kanal `mask` |
-| Pain/threat dipisahkan | PASS | Kanal `threat` |
-| Relief from others dipisahkan | PASS | Kanal `receiver` |
-| Aspirasi dipisahkan | PASS | Kanal `aspiration` |
-| Kompetensi bukan inti dipisahkan | PASS | Kanal `dismissive` |
-| Otomatis di latar dipisahkan | PASS | Kanal `background` |
-| State situasional | PASS | Latent layers |
-| Social-role mask | PASS | Latent layers dan kanal |
-| Response style | PASS | Latent layers dan Known Issues |
-| Noise | PASS | Latent layers |
-| 16 TIM sebagai model lengkap | PASS | Constitution dan Measurement Principles |
+| `ARCHITECTURE.md` | module boundaries, target tree, dependency, storage, splitting, determinism, static deployment | PASS |
+| `DATA_FLOW.md` | landing-to-share flow, ownership, holdout lock, persistence, card projection | PASS |
+| `ERROR_STRATEGY.md` | typed errors, boundary, recovery, logging privacy, failure tests | PASS |
+| `TEST_STRATEGY.md` | layers, adversarial cases, fixtures, coverage, canonical commands | PASS |
+| `FILE_MANIFEST.md` | actual files, target files, owner, consumer, gate | PASS |
+| `PROJECT_STATE.md` | stage, gate, progress, count, versions, commands, loop | PASS |
+| `DECISIONS.md` | architecture decisions DEC-0023–DEC-0040 | PASS |
+| `KNOWN_ISSUES.md` | architecture mitigations and remaining blockers | PASS |
+| `NEXT_STAGE.md` | Stage 02 read order, statuses, scope, acceptance | PASS |
+| `CHANGELOG.md` | append-only Stage 01 entry | PASS |
+| `COVERAGE_REPORT.md` | requirement and verification evidence | PASS |
 
-## 6. Coverage larangan inferensi
+`REFERENCE_MATRIX.md` dan `WORKFLOW.md` dibaca tetapi tidak memerlukan perubahan. Kedua file FROZEN tidak diubah.
 
-Semua larangan berikut telah dikunci:
+## 3. Coverage aliran data
 
-- element-high typing;
-- element-low PoLR;
-- weak-equals-Suggestive;
-- work-skill typing;
-- single-answer typing;
-- cross-system veto;
-- visual/body/profession typing;
-- compatibility certainty;
-- calibrated-probability language tanpa data.
-
-## 7. Coverage konflik referensi
-
-Konflik yang berhasil diidentifikasi dan diputuskan:
-
-1. `signs` Tier B versus Tier C;
-2. istilah kanal dan facet;
-3. status intertype relations dan Reinin;
-4. tabel korelasi versus peringatan pemisahan sistem;
-5. posterior versus indeks pra-kalibrasi;
-6. metadata 180 versus isi 208.
-
-## 8. Coverage Perfection Loop
-
-| Pass | Dilakukan | Hasil |
+| Tahap data | Dicakup | Boundary utama |
 |---|---:|---|
-| Implementasi | Ya | 11 dokumen dibuat |
-| Self-review | Ya | 5 konflik/risiko utama ditemukan |
-| Adversarial review | Ya | 5 serangan governance diuji |
-| Repair | Ya | keputusan, issue, dan batas diperjelas |
-| Verification | Ya | 34/34 assertions lulus |
+| Landing | Ya | preference/session metadata only |
+| Pemilihan mode | Ya | versioned config, no scoring |
+| Session creation | Ya | crypto seed at browser boundary |
+| Item selection | Ya | seeded and adaptive signal abstraction |
+| Answer capture | Ya | presented-item validation and revision |
+| Evidence normalization | Ya | item/option to normalized observation |
+| Core aggregation | Ya | 8 × 8 evidence map target |
+| 16-candidate comparison | Ya | pure scoring input/output |
+| Tie-break | Ya | separate registry and phase |
+| Primary result lock | Ya | before holdout |
+| Holdout | Ya | report only, no primary mutation |
+| Person-fit | Ya | non-diagnostic signals |
+| Result assembly | Ya | immutable snapshot and limits |
+| Local storage | Ya | envelope, migrations, memory fallback |
+| Card projection | Ya | no raw answers |
+| Photo processing | Ya | local and memory-only default |
+| Export/share | Ya | file share, download, text fallback |
 
-## 9. Acceptance Gate 1
+## 4. Coverage module boundaries
 
-| Kriteria | Status |
+| Module | Tanggung jawab terdefinisi | Import rules terdefinisi | Target files terdaftar |
+|---|---:|---:|---:|
+| domain | Ya | Ya | Ya |
+| questions | Ya | Ya | Ya |
+| scoring | Ya | Ya | Ya |
+| profiles | Ya | Ya | Ya |
+| session | Ya | Ya | Ya |
+| storage | Ya | Ya | Ya |
+| result | Ya | Ya | Ya |
+| card | Ya | Ya | Ya |
+| UI | Ya | Ya | Ya |
+| audit | Ya | Ya | Ya |
+| tests | Ya | Ya | Ya |
+
+## 5. Coverage kapasitas data
+
+| Target | Rancangan | Status implementasi |
+|---|---|---|
+| 192 core items | 12 batches × 16 | Belum dibuat |
+| 32 holdout items | 4 batches × 8 | Belum dibuat |
+| 32 tie-break items | 4 batches × 8 | Belum dibuat |
+| 16 TIM IDs/models | 16 target files untuk expected profile | Belum dibuat |
+| 64 channel profile | 8 elements × 8 channels per candidate | Shape dirancang, values belum dibuat |
+| Adaptive selection | abstract signal + selector boundary | Belum dibuat |
+| Person-fit | domain contract + scoring module target | Belum dibuat |
+| Evidence map | source trace + 8 × 8 cells | Belum dibuat |
+| Card multi-format | portrait, square, story | Belum dibuat |
+
+Dokumentasi kapasitas tidak dihitung sebagai data atau implementasi.
+
+## 6. Dependency verification
+
+Rancangan diperiksa sebagai directed graph. Urutan topologis yang sah:
+
+```text
+domain
+questions, scoring, profiles
+session, result
+card
+storage
+ui
+app
+audit
+tests
+```
+
+Boundary yang mencegah siklus:
+
+- session memakai port; storage mengimplementasikan port;
+- result tidak mengimpor card;
+- card hanya membaca result contracts;
+- adaptive selector menerima abstract selection signal;
+- production runtime tidak mengimpor audit atau tests.
+
+**Hasil:** PASS — tidak ada dependency cycle pada graph yang direncanakan.
+
+## 7. Coverage prinsip wajib
+
+| Pemeriksaan | Status |
 |---|---|
-| Tiga referensi wajib ditemukan | PASS |
-| Peran sumber dipisahkan | PASS |
-| Tier A–D dikunci | PASS |
-| Korelasi dilarang dari scoring | PASS |
-| Status ilmiah dinyatakan | PASS |
-| Delapan kanal dikunci | PASS |
-| 16 kandidat dikunci | PASS |
-| Workflow dan gate tersedia | PASS |
-| Status file tersedia | PASS |
-| Batas bagian tak terverifikasi dicatat | PASS |
-| Tidak ada aplikasi/pertanyaan/scoring dibuat | PASS |
+| Domain tidak bergantung pada UI | PASS BY DESIGN |
+| Scoring harus pure | PASS BY DESIGN |
+| Data tidak mengimpor komponen | PASS BY DESIGN |
+| Storage mempunyai versioning | PASS BY DESIGN |
+| Card renderer tidak bergantung pada viewport | PASS BY DESIGN |
+| Test data terpisah dari production data | PASS BY DESIGN |
+| Static deployment tanpa server data | PASS BY DESIGN |
+| Data peserta tidak memerlukan server | PASS BY DESIGN |
+| Card Studio terpisah dari scoring | PASS BY DESIGN |
+| Korelasi lintas sistem tidak masuk scoring | PASS BY DESIGN |
 
-**Keputusan Gate 1: PASS.**
+`PASS BY DESIGN` berarti kontrak dokumentasi tersedia. Ia belum berarti enforcement code atau runtime test telah lulus.
+
+## 8. Coverage error strategy
+
+- validation failure;
+- domain invariant failure;
+- storage failure;
+- scoring failure;
+- chunk loading failure;
+- photo processing failure;
+- card render/export failure;
+- share failure dan cancellation;
+- UI render failure;
+- typed error code families;
+- severity/recoverability;
+- migration safety;
+- no remote logging;
+- no answer/photo data in diagnostics.
+
+**Status:** architecture coverage PASS; implementation coverage NOT STARTED.
+
+## 9. Coverage test strategy
+
+- static/type/import checks;
+- domain invariant tests;
+- question schema and registry tests;
+- scoring and deterministic replay tests;
+- session state-machine tests;
+- storage migration/failure tests;
+- result/profile provenance tests;
+- Card Studio tests;
+- React Testing Library behavior tests;
+- integration tests;
+- manual accessibility/browser matrix;
+- adversarial test catalogue;
+- coverage thresholds;
+- canonical commands.
+
+**Status:** strategy PASS; test produk tetap 0.
+
+## 10. Perfection Loop coverage
+
+| Pass | Status | Bukti |
+|---|---|---|
+| PASS 1 — Implementasi | PASS | 4 dokumen baru dan governance updates |
+| PASS 2 — Self-review | PASS | 8 risiko struktur ditemukan |
+| PASS 3 — Adversarial review | PASS | 10 serangan arsitektur/data diuji |
+| PASS 4 — Repair | PASS | port, lock, contract boundary, eager recovery, progress correction |
+| PASS 5 — Verification | PASS | 181/181 assertions |
+
+## 11. Hash file FROZEN
+
+| File | SHA-256 | Status |
+|---|---|---|
+| `PROJECT_CONSTITUTION.md` | `877ccaaa7a92d6668b8f1ebab1437ec66c417e3ed73550758a3341661ef26502` | UNCHANGED |
+| `MEASUREMENT_PRINCIPLES.md` | `c4eff2a028a422fdcb9cd5c9f1929d28d1f89aff4ee639bdbf4f1a9300ea3b14` | UNCHANGED |
+
+## 12. Command verification
+
+Dijalankan:
+
+```text
+python3 /tmp/verify_stage01.py /mnt/data/socionics-dalam-diriku-stage-01
+```
+
+Hasil yang diharapkan dan kemudian diverifikasi:
+
+```text
+PASS — 181/181 assertions; 15/15 documents found; FROZEN hashes unchanged; dependency DAG acyclic; progress remains 4%; no application/bootstrap files detected.
+```
+
+Tidak tersedia pada Tahap 01:
+
+- `npm run dev`;
+- `npm run typecheck`;
+- `npm run lint`;
+- `npm run test`;
+- `npm run coverage`;
+- `npm run build`.
+
+Command tersebut tidak diklaim lulus.
+
+## 13. Keputusan gate
+
+### Tahap 01
+
+**PASS** — seluruh scope arsitektur dan manifest selesai serta diverifikasi.
+
+### Gate 2
+
+**IN PROGRESS** — belum ada toolchain, source, domain contracts, mapping Model A, unit tests, lint, typecheck, coverage, atau production build.
+
+### Progres
+
+**4%** — hanya Gate 1 yang lulus penuh.
